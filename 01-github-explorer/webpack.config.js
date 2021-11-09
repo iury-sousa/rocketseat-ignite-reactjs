@@ -12,7 +12,7 @@ module.exports = {
   devtool: isDevelopment ? "eval-source-map" : "source-map",
 
   // O arquivo principal/inicial da aplicação
-  entry: path.resolve(__dirname, "src", "index.jsx"),
+  entry: path.resolve(__dirname, "src", "index.tsx"),
 
   // Arquivo que será gerado pelo webpack
   output: {
@@ -22,7 +22,7 @@ module.exports = {
 
   resolve: {
     // Extensões que podem ser lidas pelo webpack
-    extensions: [".js", ".jsx"],
+    extensions: [".js", ".jsx", "ts", "tsx"],
   },
 
   // Configura o servidor local/dev do webpack
@@ -51,7 +51,7 @@ module.exports = {
     rules: [
       {
         // Verifica se o arquivo é .jsx
-        test: /\.jsx$/,
+        test: /\.(j|t)sx$/,
 
         exclude: /node_modules/,
 

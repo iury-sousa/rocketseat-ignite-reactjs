@@ -13,8 +13,6 @@ export function RepositoryList() {
       .then(response => response.json())
       .then(data => setRepositories(data));
 
-    // return () => setRepositories([]);
-
   }, [])
 
   return (
@@ -26,3 +24,4 @@ export function RepositoryList() {
     </section>
   )
 }
+
