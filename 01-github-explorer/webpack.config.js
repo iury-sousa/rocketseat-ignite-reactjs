@@ -1,5 +1,6 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const ReactRefreshWebpackPlugin = require("@pmmmwh/react-refresh-webpack-plugin");
 
 const isDevelopment = process.env.NODE_ENV !== "production";
 
@@ -32,15 +33,18 @@ module.exports = {
     },
     compress: true,
     port: 3000,
+    hot: true,
   },
 
   plugins: [
+    // Configura o react refresh
+    isDevelopment && new ReactRefreshWebpackPlugin(),
     // Injeta automaticamente o script bundle gerado pelo webpack/babel no arquivo index.html
     // do diretorio dist.
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, "public", "index.html"),
     }),
-  ],
+  ].filter(Boolean),
 
   // Configurações que devem ser efetuadas de acordo com cada tipo de arquivo importado
   module: {
@@ -53,7 +57,15 @@ module.exports = {
 
         // Integração do babel com o webpack
         // Toda vez que um arquivo .jsx é importado o babel fará a conversão para que o browser entenda.
-        use: "babel-loader",
+        // Toda vez que houver mudança no código em desenvolvimento o babel será executado em modo fast refresh
+        use: {
+          loader: "babel-loader",
+          options: {
+            plugins: [
+              isDevelopment && require.resolve("react-refresh/babel"),
+            ].filter(Boolean),
+          },
+        },
       },
       {
         test: /\.scss$/,
