@@ -22,7 +22,7 @@ module.exports = {
 
   resolve: {
     // Extensões que podem ser lidas pelo webpack
-    extensions: [".js", ".jsx", "ts", "tsx"],
+    extensions: [".js", ".jsx", ".ts", ".tsx"],
   },
 
   // Configura o servidor local/dev do webpack
