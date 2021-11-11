@@ -4,7 +4,7 @@ export const GlobalStyle = createGlobalStyle`
 
   :root {
     --background: #f0f2f5;
-    --red: #E52E40
+    --red: #E52E40;
     --blue: #5429cc;
 
     --blue-light: #6933ff;
@@ -24,10 +24,12 @@ export const GlobalStyle = createGlobalStyle`
   html {
     @media (max-width: 1080px){
       font-size: 93.75%; // 15px
+      transition: filter 0.2s;
     }
 
     @media (max-width: 720px){
       font-size: 87.5%; // 14px
+      transition: filter 0.2s;
     }
   }
 
