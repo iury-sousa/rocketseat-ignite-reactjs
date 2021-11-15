@@ -1,5 +1,7 @@
+import { query } from "faunadb";
 import NextAuth from "next-auth";
 import Provides from "next-auth/providers";
+import { fauna } from "../../../services/fauna";
 
 export default NextAuth({
   providers: [
@@ -9,4 +11,25 @@ export default NextAuth({
       scope: "read:user",
     }),
   ],
+  jwt: {
+    signingKey: process.env.SIGNING_KEY,
+  },
+  callbacks: {
+    async signIn(user, account, profile) {
+      try {
+        const { email } = user;
+
+        const { Create, Collection } = query;
+        await fauna.query(
+          Create(Collection("users"), {
+            data: { email },
+          })
+        );
+
+        return true;
+      } catch {
+        return false;
+      }
+    },
+  },
 });
