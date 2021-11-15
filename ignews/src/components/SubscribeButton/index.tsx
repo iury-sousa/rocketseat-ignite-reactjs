@@ -1,5 +1,4 @@
 import { signIn, useSession } from "next-auth/client";
-import { stripe } from "../../services/stripe";
 import styles from "./styles.module.scss";
 
 type SubscribeButtonProps = {
