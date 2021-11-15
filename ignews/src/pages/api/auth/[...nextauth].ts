@@ -16,11 +16,28 @@ export default NextAuth({
       try {
         const { email } = user;
 
-        const { Create, Collection } = query;
+        const {
+          Create,
+          Collection,
+          If,
+          Not,
+          Exists,
+          Match,
+          Index,
+          Casefold,
+          Get,
+        } = query;
+
+        const where = Match(Index("user_by_email"), Casefold(email));
+
         await fauna.query(
-          Create(Collection("users"), {
-            data: { email },
-          })
+          If(
+            Not(Exists(where)),
+            Create(Collection("users"), {
+              data: { email },
+            }),
+            Get(where)
+          )
         );
 
         return true;
