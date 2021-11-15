@@ -25,6 +25,12 @@
 
   svg.closeIcon {
     margin-left: 1rem;
+    transition: color .2s;
+    color: #737380;
+
+    &:hover {
+      color: var(--white)
+    }
   }
 
   &:hover {
