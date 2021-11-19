@@ -1,4 +1,4 @@
-import { GetStaticProps } from "next";
+import { GetStaticPaths, GetStaticProps } from "next";
 import Link from "next/link";
 import Head from "next/head";
 import { RichText } from "prismic-dom";
@@ -14,13 +14,6 @@ type PostPreviewProps = {
     title: string;
     content: string;
     updatedAt: string;
-  };
-};
-
-export const getStaticPaths = () => {
-  return {
-    paths: [],
-    fallback: "blocking",
   };
 };
 
@@ -59,6 +52,13 @@ export default function PostPreview({ post }: PostPreviewProps) {
   );
 }
 
+export const getStaticPaths: GetStaticPaths = () => {
+  return {
+    paths: [],
+    fallback: "blocking",
+  };
+};
+
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { slug } = params;
 
@@ -82,5 +82,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   return {
     props: { post },
+    revalidate: 60 * 30, // 30 minutos
   };
 };
