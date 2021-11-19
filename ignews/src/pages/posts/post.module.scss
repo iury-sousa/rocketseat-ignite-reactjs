@@ -49,6 +49,12 @@
       border-radius: .5rem;
     }
 
+    a {
+      transition: color 0.2s;
 
+      &:hover {
+        color: var(--yellow-500);
+      }
+    }
   }
 }
