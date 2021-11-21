@@ -12,12 +12,12 @@ export const SidebarNav = () => {
   return (
     <Stack spacing="12" align="flex-start">
       <NavSection title="Geral">
-        <NavLink title="Dashboard" icon={RiDashboardLine} />
-        <NavLink title="Usuários" icon={RiContactsLine} />
+        <NavLink title="Dashboard" icon={RiDashboardLine} href="/dashboard" />
+        <NavLink title="Usuários" icon={RiContactsLine} href="/users" />
       </NavSection>
       <NavSection title="Automação">
-        <NavLink title="Formulários" icon={RiInputMethodLine} />
-        <NavLink title="Automação" icon={RiGitMergeLine} />
+        <NavLink title="Formulários" icon={RiInputMethodLine} href="/forms" />
+        <NavLink title="Automação" icon={RiGitMergeLine} href="/automation" />
       </NavSection>
     </Stack>
   );
