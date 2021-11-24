@@ -4,7 +4,7 @@ import faker from "faker";
 type User = {
   name: string;
   email: string;
-  create_at: string;
+  created_at: string;
 };
 
 export function makeServer() {
@@ -22,7 +22,7 @@ export function makeServer() {
         email() {
           return faker.internet.email().toLowerCase();
         },
-        createAt() {
+        createdAt() {
           const days = 10;
           return faker.date.recent(days);
         },
@@ -30,7 +30,7 @@ export function makeServer() {
     },
 
     seeds(server) {
-      server.createList("user", 200);
+      server.createList("user", 10);
     },
     routes() {
       this.namespace = "api";
