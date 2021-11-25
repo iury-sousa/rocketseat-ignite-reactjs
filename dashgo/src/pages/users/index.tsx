@@ -21,6 +21,7 @@ import { useQuery } from "react-query";
 import { Header } from "../../components/Header";
 import { Pagination } from "../../components/Pagination";
 import { Sidebar } from "../../components/Sidebar";
+import { api } from "../../services/api";
 
 type User = {
   id: string;
@@ -37,8 +38,8 @@ export default function Users() {
   const { data, isLoading, isFetching, error } = useQuery(
     "users",
     async () => {
-      const response = await fetch("http://localhost:3000/api/users");
-      const data = (await response.json()) as FetchData;
+      const response = await api.get<FetchData>("/users");
+      const data = response.data;
 
       const users = data?.users?.map((user) => {
         return {
