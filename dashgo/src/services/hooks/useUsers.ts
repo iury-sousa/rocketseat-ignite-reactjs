@@ -12,9 +12,19 @@ type FetchData = {
   users: User[];
 };
 
-export async function getUsers(): Promise<User[] | null> {
-  const response = await api.get<FetchData>("/users");
-  const data = response.data;
+type GetUsersResponse = {
+  totalCount: number;
+  users: User[];
+};
+
+export async function getUsers(page: number): Promise<GetUsersResponse | null> {
+  const { data, headers } = await api.get<FetchData>("/users", {
+    params: {
+      page,
+    },
+  });
+
+  const totalCount = Number(headers["x-total-count"]);
 
   if (!data || !data.users) {
     return null;
@@ -31,9 +41,11 @@ export async function getUsers(): Promise<User[] | null> {
     };
   });
 
-  return users;
+  return { users, totalCount };
 }
 
-export function useUsers() {
-  return useQuery("users", getUsers, { staleTime: 1000 * 5 });
+export function useUsers(page: number) {
+  return useQuery(["users", page], () => getUsers(page), {
+    staleTime: 1000 * 5,
+  });
 }

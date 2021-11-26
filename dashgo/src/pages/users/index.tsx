@@ -5,6 +5,7 @@ import {
   Flex,
   Heading,
   Icon,
+  Spinner,
   Table,
   Tbody,
   Td,
@@ -12,20 +13,19 @@ import {
   Th,
   Thead,
   Tr,
-  Spinner,
   useBreakpointValue,
 } from "@chakra-ui/react";
 import Link from "next/link";
+import { useState } from "react";
 import { RiAddLine } from "react-icons/ri";
-import { useQuery } from "react-query";
 import { Header } from "../../components/Header";
 import { Pagination } from "../../components/Pagination";
 import { Sidebar } from "../../components/Sidebar";
-import { api } from "../../services/api";
 import { useUsers } from "../../services/hooks/useUsers";
 
 export default function Users() {
-  const { data, isLoading, isFetching, error } = useUsers();
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const { data, isLoading, isFetching, error } = useUsers(currentPage);
 
   const isWideVersion = useBreakpointValue({ base: false, lg: true });
 
@@ -73,7 +73,7 @@ export default function Users() {
                   </Tr>
                 </Thead>
                 <Tbody>
-                  {data?.map((user) => (
+                  {data?.users?.map((user) => (
                     <Tr key={user.id}>
                       <Td px={["4", "4", "6"]}>
                         <Checkbox colorScheme="pink" />
@@ -92,9 +92,9 @@ export default function Users() {
                 </Tbody>
               </Table>
               <Pagination
-                totalCountOfRegisters={200}
-                currentPage={5}
-                onPageChange={() => {}}
+                totalCountOfRegisters={data?.totalCount ?? 0}
+                currentPage={Number(currentPage)}
+                onPageChange={setCurrentPage}
               />
             </>
           )}
