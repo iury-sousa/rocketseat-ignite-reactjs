@@ -21,14 +21,20 @@ import { RiAddLine } from "react-icons/ri";
 import { Header } from "../../components/Header";
 import { Pagination } from "../../components/Pagination";
 import { Sidebar } from "../../components/Sidebar";
-import { useUsers } from "../../services/hooks/useUsers";
+import { getUsers, User, useUsers } from "../../services/hooks/useUsers";
 import NextLink from "next/link";
 import { queryClient } from "../../services/queryClient";
 import { api } from "../../services/api";
+import { GetServerSideProps } from "next";
 
-export default function Users() {
+type UsersProps = {
+  users: User[];
+};
+export default function Users({ users }: UsersProps) {
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const { data, isLoading, isFetching, error } = useUsers(currentPage);
+  const { data, isLoading, isFetching, error } = useUsers(currentPage, {
+    initialData: users,
+  });
 
   const isWideVersion = useBreakpointValue({ base: false, lg: true });
 
@@ -123,3 +129,11 @@ export default function Users() {
     </Box>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const response = await getUsers(1);
+
+  return {
+    props: { users: response?.users },
+  };
+};
