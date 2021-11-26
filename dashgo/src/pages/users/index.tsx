@@ -36,7 +36,7 @@ export default function Users() {
     await queryClient.prefetchQuery(
       ["user", userId],
       async () => {
-        const response = await api.get(`user/${userId}`);
+        const response = await api.get(`users/${userId}`);
 
         return response.data;
       },
