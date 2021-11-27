@@ -5,9 +5,10 @@ import {
   useEffect,
   useState,
 } from "react";
-import { api, HeaderProperties, signOut } from "../services/api";
+import { api } from "../services/apiClient";
 import Router from "next/router";
 import { setCookie, parseCookies, destroyCookie } from "nookies";
+import { HeaderProperties } from "../services/api";
 
 type User = {
   email: string;
@@ -36,6 +37,13 @@ type SessionResponse = Omit<User, "email"> & {
 };
 
 const AuthContext = createContext({} as AuthContextData);
+
+export const signOut = () => {
+  destroyCookie(undefined, "nextauth.token");
+  destroyCookie(undefined, "nextauth.refreshToken");
+
+  Router.push("/");
+};
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<User>();
