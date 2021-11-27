@@ -5,9 +5,9 @@ import {
   useEffect,
   useState,
 } from "react";
-import { api, HeaderProperties } from "../services/api";
+import { api, HeaderProperties, signOut } from "../services/api";
 import Router from "next/router";
-import { setCookie, parseCookies } from "nookies";
+import { setCookie, parseCookies, destroyCookie } from "nookies";
 
 type User = {
   email: string;
@@ -45,9 +45,15 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     const { "nextauth.token": token } = parseCookies();
 
     if (token) {
-      api.get<User>("/me").then((response) => {
-        setUser(response.data);
-      });
+      api
+        .get<User>("/me")
+        .then((response) => {
+          setUser(response.data);
+        })
+        .catch((error) => {
+          console.log({ error });
+          signOut();
+        });
     }
   }, []);
 

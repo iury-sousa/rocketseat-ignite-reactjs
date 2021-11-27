@@ -1,5 +1,6 @@
 import axios, { AxiosError, HeadersDefaults } from "axios";
-import { parseCookies, setCookie } from "nookies";
+import Router from "next/router";
+import { destroyCookie, parseCookies, setCookie } from "nookies";
 
 export type HeaderProperties = HeadersDefaults & {
   Authorization: string;
@@ -20,6 +21,13 @@ export const api = axios.create({
     Authorization: `Bearer ${cookies["nextauth.token"]}`,
   },
 });
+
+export const signOut = () => {
+  destroyCookie(undefined, "nextauth.token");
+  destroyCookie(undefined, "nextauth.refreshToken");
+
+  Router.push("/");
+};
 
 api.interceptors.response.use(
   (response) => {
@@ -90,7 +98,11 @@ api.interceptors.response.use(
             },
           });
         });
+      } else {
+        signOut();
       }
     }
+
+    return Promise.reject(error);
   }
 );
