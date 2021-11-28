@@ -79,7 +79,7 @@ export function setupApiClient(
                 failedRequestsQueue = [];
 
                 if (process.browser) {
-                  signOut();
+                  signOut(context);
                 }
               })
               .finally(() => {
@@ -104,7 +104,7 @@ export function setupApiClient(
           });
         } else {
           if (process.browser) {
-            signOut();
+            signOut(context);
           } else {
             return Promise.reject(new AuthTokenError());
           }
