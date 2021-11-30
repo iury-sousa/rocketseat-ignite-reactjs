@@ -7,6 +7,7 @@ type SearchResultsProps = {
     title: string;
   }>;
 };
+
 export const SearchResults = ({ results }: SearchResultsProps) => {
   return (
     <div>
