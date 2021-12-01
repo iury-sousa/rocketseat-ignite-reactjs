@@ -33,3 +33,9 @@ export const ProductItem = memo(
  * 3. Re-renders with same props
  * 4. Medium to big size
  */
+
+/**
+ * useMemo / useCallback
+ * 1. Cáculos pesados
+ * 2. Igualdade referencial (quando a gente repassa aquela informação a um component filho )
+ */
