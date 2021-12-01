@@ -2,12 +2,19 @@ import { memo } from "react";
 
 type ProductItemProps = {
   product: { id: number; price: number; title: string };
+  onAddToWishlist: (id: number) => void;
 };
 
-const ProductItemComponent = ({ product }: ProductItemProps) => {
+const ProductItemComponent = ({
+  product,
+  onAddToWishlist,
+}: ProductItemProps) => {
   return (
     <div>
       {product.title} - <strong>{product.price}</strong>
+      <button type="button" onClick={() => onAddToWishlist(product.id)}>
+        Add
+      </button>
     </div>
   );
 };
@@ -35,7 +42,10 @@ export const ProductItem = memo(
  */
 
 /**
- * useMemo / useCallback
+ * useMemo
  * 1. Cáculos pesados
  * 2. Igualdade referencial (quando a gente repassa aquela informação a um component filho )
+ *
+ * useCallback
+ * 1. Igualdade referencial (quando a função precisa ser passada para componentes filhos)
  */
