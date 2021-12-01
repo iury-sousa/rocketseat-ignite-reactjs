@@ -1,4 +1,11 @@
-import { memo } from "react";
+import { memo, useState, lazy } from "react";
+import { AddProductToWishlist } from "./AddProductToWishlist";
+
+// const AddProductToWishlist = lazy(() =>
+//   import("./AddProductToWishlist").then(({ AddProductToWishlist }) => ({
+//     default: AddProductToWishlist,
+//   }))
+// );
 
 type ProductItemProps = {
   product: { id: number; price: number; title: string };
@@ -9,12 +16,19 @@ const ProductItemComponent = ({
   product,
   onAddToWishlist,
 }: ProductItemProps) => {
+  const [isAddingToWishlist, setIsAddingToWishlist] = useState(false);
   return (
     <div>
       {product.title} - <strong>{product.price}</strong>
-      <button type="button" onClick={() => onAddToWishlist(product.id)}>
-        Add
+      <button onClick={() => setIsAddingToWishlist(true)}>
+        Adicionar aos favoritos
       </button>
+      {isAddingToWishlist && (
+        <AddProductToWishlist
+          onAddToWishList={() => onAddToWishlist(product.id)}
+          onRequestClose={() => setIsAddingToWishlist(false)}
+        />
+      )}
     </div>
   );
 };
