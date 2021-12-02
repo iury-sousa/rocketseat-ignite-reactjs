@@ -1,5 +1,6 @@
 import { memo, useState, lazy } from "react";
 import { AddProductToWishlist } from "./AddProductToWishlist";
+import lodash from "lodash";
 
 // const AddProductToWishlist = lazy(() =>
 //   import("./AddProductToWishlist").then(({ AddProductToWishlist }) => ({
@@ -36,7 +37,8 @@ const ProductItemComponent = ({
 export const ProductItem = memo(
   ProductItemComponent,
   (prevProps, nextProps) => {
-    return Object.is(prevProps.product, nextProps.product);
+    // return Object.is(prevProps.product, nextProps.product);
+    return lodash.isEqual(prevProps.product, nextProps.product);
   }
 );
 

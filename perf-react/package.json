@@ -8,17 +8,20 @@
     "server": "json-server -d 750 -w -p 3333 ./server.js"
   },
   "dependencies": {
+    "lodash": "^4.17.21",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
     "react-virtualized": "^9.22.3"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.177",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "@types/react-virtualized": "^9.21.15",
     "@vitejs/plugin-react": "^1.0.0",
     "json-server": "^0.17.0",
     "typescript": "^4.3.2",
-    "vite": "^2.6.4"
+    "vite": "^2.6.4",
+    "webpack-bundle-analyzer": "^4.5.0"
   }
 }
