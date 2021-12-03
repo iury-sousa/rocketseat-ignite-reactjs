@@ -1,4 +1,9 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import {
+  render,
+  screen,
+  waitFor,
+  waitForElementToBeRemoved,
+} from "@testing-library/react";
 import { Async } from ".";
 
 test("it renders correctly", async () => {
@@ -12,4 +17,13 @@ test("it renders correctly", async () => {
   await waitFor(() => expect(screen.getByText("Button")).toBeInTheDocument(), {
     timeout: 3000,
   });
+
+  /**Quando o elemento não é exibido
+  * Exemplo 01
+    await waitFor(() => expect(screen.queryByText("Button")).not.toBeInTheDocument(), {
+      timeout: 3000,
+    });
+  * Exemplo 02
+    await waitForElementToBeRemoved(screen.queryByText("Button"))
+  */
 });
