@@ -1,5 +1,7 @@
 import { Header } from '../Header'
 import { Sidebar } from '../Sidebar';
+import { Post } from '../Post';
+
 import styles from './styles.module.css'
 import '../../styles/global.css';
 
@@ -9,7 +11,11 @@ export function App() {
       <Header />
       <div className={styles.wrapper}>
         <Sidebar />
-        <main>main</main>
+        <main>
+          <Post />
+          <Post />
+          <Post />
+        </main>
       </div>
     </div >
   )
