@@ -2,7 +2,7 @@ import { Avatar } from '../Avatar';
 import { Comment } from '../Comment';
 import styles from './styles.module.css';
 
-export function Post() {
+export function Post({ author, content, publishedAt }) {
   return (
     <article className={styles.post}>
       <header>
