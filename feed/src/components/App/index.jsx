@@ -23,7 +23,7 @@ const posts = [
       //   <a href="#">#rocketseat </a>
       // </p>
     ],
-    publishedAt: new Date('2022-06-06 08:36:00')
+    publishedAt: new Date('2022-06-08 08:36:00')
   },
   {
     id: 2,
