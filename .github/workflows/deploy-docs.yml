@@ -26,6 +26,6 @@ jobs:
 
       - name: Deploy storybook
         working-directory: ./desing-system/packages/docs
-        run: yarn deploy -- --ci --existing-output-dir=storybook-static
+        run: yarn deploy -- --ci --existing-output-dir=./desing-system/packages/docs/storybook-static
         env:
           GH_TOKEN: ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}
