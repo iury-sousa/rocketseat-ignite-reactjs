@@ -8,10 +8,6 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: desing-system
-
     steps:
       - name: "Checkout"
         uses: actions/checkout@v3
@@ -22,14 +18,14 @@ jobs:
           node-version: 16
 
       - run: yarn install --frozen-lockfile
-        working-directory: ../
+        working-directory: desing-system
 
       - name: Build dependencies
         working-directory: desing-system
         run: yarn build
 
       - name: Deploy storybook
-        working-directory: ../packages/docs
+        working-directory: desing-system/packages/docs
         run: npm run deploy-storybook -- --ci --existing-output-dir=storybook-static
         env:
           GH_TOKEN: ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}
