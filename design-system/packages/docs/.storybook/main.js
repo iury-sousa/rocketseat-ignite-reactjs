@@ -16,6 +16,20 @@ const config = {
     autodocs: true,
     defaultName: "Documentation",
   },
+  viteFinal: (config, { configType }) => {
+    // if (configType === "PRODUCTION") {
+    config.base = "./";
+    // }
+
+    return config;
+  },
+  env: (config) => ({
+    ...config,
+    STORYBOOK_BASE_URL:
+      process.env.NODE_ENV === "production"
+        ? "https://iury-sousa.github.io/ignite-reactjs/"
+        : "",
+  }),
 };
 
 export default config;
