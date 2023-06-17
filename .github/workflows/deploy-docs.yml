@@ -21,7 +21,7 @@ jobs:
         working-directory: .
 
       - name: Build dependencies
-        working-directory: desing-system
+        working-directory: .
         run: yarn build
 
       - name: Deploy storybook
