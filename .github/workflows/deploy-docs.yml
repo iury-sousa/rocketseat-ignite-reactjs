@@ -22,7 +22,7 @@ jobs:
           node-version: 16
 
       - run: npm ci
-        working-directory: .
+        working-directory: ../
 
       - name: Build dependencies
         run: npm run build
