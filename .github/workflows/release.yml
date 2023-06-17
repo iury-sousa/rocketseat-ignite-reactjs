@@ -1,15 +1,18 @@
-name: Deploy docs
+name: Release
 
 on:
   push:
     branches:
       - main
 
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
 jobs:
-  build-and-deploy:
+  release:
+    name: Release
     runs-on: ubuntu-latest
     steps:
-      - name: "Checkout"
+      - name: Checkout
         uses: actions/checkout@v3
 
       - name: Setup Node.js
@@ -17,20 +20,19 @@ jobs:
         with:
           node-version: 16
           cache: "yarn"
-          cache-dependency-path: "**/yarn.lock"
+          cache-dependency-path: "**/yarn-lock"
 
       - run: yarn install --frozen-lockfile
         working-directory: ./design-system
 
-      - name: Build dependencies
+      - name: Publish to NPM
+        id: changesets
+        uses: changesets/action@v1
         working-directory: ./design-system
-        run: yarn build
+        with:
+          publish: yarn release
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           TURBO_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           TURBO_TEAM: iurysousa
-
-      - name: Deploy storybook
-        working-directory: ./design-system/packages/docs
-        run: yarn deploy -- --ci --existing-output-dir=storybook-static
-        env:
-          GH_TOKEN: ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}
