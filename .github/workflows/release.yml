@@ -28,9 +28,8 @@ jobs:
       - name: Publish to NPM
         id: changesets
         uses: changesets/action@v1
-        working-directory: ./design-system
         with:
-          publish: yarn release
+          publish: yarn --cwd ./design-system release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
