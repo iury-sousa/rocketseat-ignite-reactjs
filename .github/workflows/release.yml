@@ -20,7 +20,7 @@ jobs:
         with:
           node-version: 16
           cache: "yarn"
-          cache-dependency-path: "**/yarn-lock"
+          cache-dependency-path: "**/yarn.lock"
 
       - run: yarn install --frozen-lockfile
         working-directory: ./design-system
@@ -35,3 +35,7 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           TURBO_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           TURBO_TEAM: iurysousa
+
+      - name: Do something after we publish a new version
+        if: steps.changesets.outputs.published == 'true'
+        run: echo "New version published!"
