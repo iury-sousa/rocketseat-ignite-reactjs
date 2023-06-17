@@ -8,6 +8,10 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: desing-system
+
     steps:
       - name: "Checkout"
         uses: actions/checkout@v3
@@ -20,11 +24,10 @@ jobs:
       - run: npm ci
 
       - name: Build dependencies
-        working-directoty: ./design-system
-        run: npm RUN build
+        run: npm run build
 
       - name: Deploy storybook
-        working-directoty: ./design-system/packages/docs
+        working-directoty: ./packages/docs
         run: npm run deploy-storybook -- --ci --existing-output-dir=storybook-static
         env:
           GH_TOKEN: ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}
