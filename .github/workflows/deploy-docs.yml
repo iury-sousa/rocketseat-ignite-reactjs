@@ -18,7 +18,7 @@ jobs:
           node-version: 16
 
       - run: yarn install --frozen-lockfile
-        working-directory: ../desing-system
+        working-directory: .
 
       - name: Build dependencies
         working-directory: desing-system
