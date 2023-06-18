@@ -1,0 +1,2 @@
+import{t as e}from"./chunk-4NMOSTKD-052c8761.js";import"./index-d475d2ea.js";const o={parameters:{actions:{argTypesRegex:"^on[A-Z].*"},controls:{matchers:{color:/(background|color)$/i,date:/Date$/}},docs:{theme:e.dark},backgrounds:{default:"default",values:[{name:"default",value:e.dark.appContentBg},{name:"light",value:e.light.appContentBg}]}}};export{o as default};
+//# sourceMappingURL=preview-02fa9289.js.map
